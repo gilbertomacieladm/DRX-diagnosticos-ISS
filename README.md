@@ -1,3 +1,4 @@
+index.html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -712,6 +713,66 @@
     .nav-btn { padding: 6px 10px; font-size: 12px; }
     footer { flex-direction: column; gap: 8px; text-align: center; }
   }
+  /* TAB HERO */
+  .tab-hero {
+    border-bottom: 1px solid var(--border);
+    padding: 40px 0 36px;
+    margin-bottom: 40px;
+  }
+
+  .tab-hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  .tab-hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 20px; height: 1px;
+    background: var(--accent);
+  }
+
+  .tab-hero-title {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .tab-hero-title span { color: var(--accent); }
+
+  .tab-hero-sub {
+    font-size: 14px;
+    color: var(--text2);
+    max-width: 520px;
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  .tab-kpis {
+    display: flex;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 800px;
+  }
+
+  .tab-kpi {
+    background: var(--bg2);
+    padding: 16px 20px;
+    flex: 1;
+  }
 </style>
 </head>
 <body>
@@ -735,38 +796,24 @@
   </div>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-eyebrow">Diagnóstico Criativo · Junho 2026</div>
-    <h1>Radiografia completa dos<br><span>canais digitais</span></h1>
-    <p class="hero-sub">Auditoria técnica de Instagram, mídia paga, direcionamento criativo e ambiente digital da Impacto Soluções em Segurança — projeto Destrava Receita Raio-X.</p>
-    <div class="kpis">
-      <div class="kpi">
-        <div class="kpi-val red">874</div>
-        <div class="kpi-label">Seguidores</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-val red">3,5</div>
-        <div class="kpi-label">Curtidas/post</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-val red">0</div>
-        <div class="kpi-label">Anúncios ativos</div>
-      </div>
-      <div class="kpi">
-        <div class="kpi-val amber">T1+T2</div>
-        <div class="kpi-label">Travas ativas</div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- MAIN -->
 <main class="main">
 
   <!-- ======== ABA: INSTAGRAM ======== -->
   <div id="tab-instagram" class="tab-content active">
+
+    <div class="tab-hero">
+      <div class="tab-hero-eyebrow">Auditoria de Instagram · Junho 2026</div>
+      <h2 class="tab-hero-title">Diagnóstico de<br><span>presença orgânica</span></h2>
+      <p class="tab-hero-sub">Análise completa do perfil @impactosolucaoemseguranca — engajamento, bio, conteúdo e funil.</p>
+      <div class="tab-kpis">
+        <div class="tab-kpi"><div class="kpi-val red">874</div><div class="kpi-label">Seguidores</div></div>
+        <div class="tab-kpi"><div class="kpi-val red">3,5</div><div class="kpi-label">Curtidas/post</div></div>
+        <div class="tab-kpi"><div class="kpi-val red">0</div><div class="kpi-label">Comentários (20 posts)</div></div>
+        <div class="tab-kpi"><div class="kpi-val red">60%</div><div class="kpi-label">Posts com 0 curtidas</div></div>
+        <div class="tab-kpi"><div class="kpi-val red">0</div><div class="kpi-label">Histórico tráfego pago</div></div>
+      </div>
+    </div>
 
     <div class="section">
       <div class="section-header">
@@ -776,29 +823,6 @@
       <div class="verdict">
         <div class="verdict-label">Veredito</div>
         <p>A Impacto Soluções é uma empresa com credenciais sólidas — 21 anos de mercado, conta verificada, portfólio real — que está <strong style="color:var(--text)">invisível nas redes sociais por um problema estratégico, não operacional</strong>. O produto existe, os cases existem, a prova social existe — mas nada disso está chegando à audiência certa.</p>
-      </div>
-
-      <div class="metrics-row">
-        <div class="metric-cell">
-          <div class="metric-val red">874</div>
-          <div class="metric-label">Seguidores totais</div>
-        </div>
-        <div class="metric-cell">
-          <div class="metric-val red">3,5</div>
-          <div class="metric-label">Curtidas médias/post</div>
-        </div>
-        <div class="metric-cell">
-          <div class="metric-val red">0</div>
-          <div class="metric-label">Comentários (20 posts)</div>
-        </div>
-        <div class="metric-cell">
-          <div class="metric-val red">60%</div>
-          <div class="metric-label">Posts com 0 curtidas</div>
-        </div>
-        <div class="metric-cell">
-          <div class="metric-val red">0</div>
-          <div class="metric-label">Histórico tráfego pago</div>
-        </div>
       </div>
     </div>
 
@@ -1022,6 +1046,18 @@
   <!-- ======== ABA: MÍDIA PAGA ======== -->
   <div id="tab-midia" class="tab-content">
 
+    <div class="tab-hero">
+      <div class="tab-hero-eyebrow">Estratégia de Mídia Paga · Junho 2026</div>
+      <h2 class="tab-hero-title">Roadmap de<br><span>ativação de canais pagos</span></h2>
+      <p class="tab-hero-sub">Diagnóstico competitivo e plano de ativação de LinkedIn Ads e Google Ads para B2B Enterprise — hospitalar, solar e logística.</p>
+      <div class="tab-kpis">
+        <div class="tab-kpi"><div class="kpi-val red">0</div><div class="kpi-label">Anúncios ativos hoje</div></div>
+        <div class="tab-kpi"><div class="kpi-val amber">R$ 25k</div><div class="kpi-label">Mín. por canal/mês</div></div>
+        <div class="tab-kpi"><div class="kpi-val">6–10</div><div class="kpi-label">Decisores por conta Enterprise</div></div>
+        <div class="tab-kpi"><div class="kpi-val">60 dias</div><div class="kpi-label">Período mínimo de teste</div></div>
+      </div>
+    </div>
+
     <div class="section">
       <div class="section-header">
         <span class="section-num">01</span>
@@ -1236,6 +1272,18 @@
   <!-- ======== ABA: CRIATIVO ======== -->
   <div id="tab-criativo" class="tab-content">
 
+    <div class="tab-hero">
+      <div class="tab-hero-eyebrow">Direcionamento de Criativo · Junho 2026</div>
+      <h2 class="tab-hero-title">O que produzir,<br><span>o que dizer e como dizer</span></h2>
+      <p class="tab-hero-sub">Diretrizes concretas de criativo por canal (LinkedIn, Google, Meta) e por vertical (hospitalar, usinas solares, logística).</p>
+      <div class="tab-kpis">
+        <div class="tab-kpi"><div class="kpi-val">3</div><div class="kpi-label">Verticais mapeadas</div></div>
+        <div class="tab-kpi"><div class="kpi-val">4</div><div class="kpi-label">Formatos LinkedIn</div></div>
+        <div class="tab-kpi"><div class="kpi-val red">P1</div><div class="kpi-label">Reels de campo — prioridade máxima</div></div>
+        <div class="tab-kpi"><div class="kpi-val red">0</div><div class="kpi-label">Stock photos — nunca usar</div></div>
+      </div>
+    </div>
+
     <div class="section">
       <div class="section-header">
         <span class="section-num">01</span>
@@ -1380,6 +1428,18 @@
 
   <!-- ======== ABA: CRO / SEO ======== -->
   <div id="tab-cro" class="tab-content">
+
+    <div class="tab-hero">
+      <div class="tab-hero-eyebrow">Auditoria CRO / SEO · Junho 2026</div>
+      <h2 class="tab-hero-title">Ambiente digital<br><span>estruturalmente quebrado</span></h2>
+      <p class="tab-hero-sub">Diagnóstico do site impactosoluc.com.br — capacidade de converter atenção em interesse acionável para decisores B2B Enterprise.</p>
+      <div class="tab-kpis">
+        <div class="tab-kpi"><div class="kpi-val red">5</div><div class="kpi-label">Achados críticos</div></div>
+        <div class="tab-kpi"><div class="kpi-val red">T2+T4</div><div class="kpi-label">Travas confirmadas</div></div>
+        <div class="tab-kpi"><div class="kpi-val red">0%</div><div class="kpi-label">Tráfego pago — não ativar agora</div></div>
+        <div class="tab-kpi"><div class="kpi-val amber">3</div><div class="kpi-label">LPs por vertical a criar</div></div>
+      </div>
+    </div>
 
     <div class="section">
       <div class="section-header">
@@ -1596,6 +1656,18 @@
 
   <!-- ======== ABA: SÍNTESE EXECUTIVA ======== -->
   <div id="tab-sintese" class="tab-content">
+
+    <div class="tab-hero">
+      <div class="tab-hero-eyebrow">Síntese Executiva · Destrava Receita Raio-X</div>
+      <h2 class="tab-hero-title">Trava governante<br><span>confirmada: T1 Cegueira</span></h2>
+      <p class="tab-hero-sub">Dimensionamento de mercado, diagnóstico da trava governante, 7 UDEs mapeados e conflito central identificado — base para o Board 1.</p>
+      <div class="tab-kpis">
+        <div class="tab-kpi"><div class="kpi-val">R$ 19 Bi</div><div class="kpi-label">TAM — Segurança Brasil 2026</div></div>
+        <div class="tab-kpi"><div class="kpi-val red">T1</div><div class="kpi-label">Trava governante</div></div>
+        <div class="tab-kpi"><div class="kpi-val red">3/3</div><div class="kpi-label">Testes de restrição confirmados</div></div>
+        <div class="tab-kpi"><div class="kpi-val amber">0,79%</div><div class="kpi-label">SOM necessário para meta R$ 12 Mi</div></div>
+      </div>
+    </div>
 
     <div class="section">
       <div class="section-header">
