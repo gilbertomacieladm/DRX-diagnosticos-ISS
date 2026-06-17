@@ -1,1 +1,1615 @@
 # DRX-diagnosticos-ISS
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico DR-X — Impacto Soluções em Segurança</title>
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg2: #111113;
+    --bg3: #18181b;
+    --bg4: #1f1f23;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --text: #f0f0f0;
+    --text2: #a0a0ab;
+    --text3: #6b6b78;
+    --accent: #e63329;
+    --accent2: #ff4d42;
+    --accent-dim: rgba(230,51,41,0.12);
+    --green: #22c55e;
+    --green-dim: rgba(34,197,94,0.12);
+    --amber: #f59e0b;
+    --amber-dim: rgba(245,158,11,0.12);
+    --red-dim: rgba(230,51,41,0.12);
+    --blue: #3b82f6;
+    --blue-dim: rgba(59,130,246,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    position: sticky;
+    top: 0;
+    background: rgba(10,10,11,0.96);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    height: 60px;
+  }
+
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+
+  .logo-dot {
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text2);
+  }
+
+  .divider-v {
+    width: 1px;
+    height: 24px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+
+  .client-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .nav {
+    display: flex;
+    gap: 2px;
+    margin-left: auto;
+  }
+
+  .nav-btn {
+    background: none;
+    border: none;
+    color: var(--text3);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: color 0.15s, background 0.15s;
+    white-space: nowrap;
+  }
+
+  .nav-btn:hover { color: var(--text2); background: var(--bg3); }
+  .nav-btn.active {
+    color: var(--text);
+    background: var(--bg4);
+    border: 1px solid var(--border2);
+  }
+
+  /* HERO STRIP */
+  .hero {
+    border-bottom: 1px solid var(--border);
+    padding: 56px 40px 48px;
+    background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
+  }
+
+  .hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 20px; height: 1px;
+    background: var(--accent);
+  }
+
+  .hero h1 {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    max-width: 640px;
+    margin-bottom: 12px;
+  }
+
+  .hero h1 span { color: var(--accent); }
+
+  .hero-sub {
+    font-size: 15px;
+    color: var(--text2);
+    max-width: 520px;
+    margin-bottom: 36px;
+  }
+
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 720px;
+  }
+
+  .kpi {
+    background: var(--bg2);
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .kpi-val {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .kpi-label {
+    font-size: 11px;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+  }
+
+  .kpi-val.red { color: var(--accent); }
+  .kpi-val.green { color: var(--green); }
+  .kpi-val.amber { color: var(--amber); }
+
+  /* MAIN */
+  .main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 40px;
+  }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 48px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-num {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+
+  /* CARDS GRID */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+  }
+
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  .card-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  .badge.red { background: var(--red-dim); color: var(--accent2); }
+  .badge.green { background: var(--green-dim); color: var(--green); }
+  .badge.amber { background: var(--amber-dim); color: var(--amber); }
+  .badge.blue { background: var(--blue-dim); color: var(--blue); }
+
+  .badge::before {
+    content: '';
+    display: block;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .card p {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.65;
+  }
+
+  /* VERDICT BOX */
+  .verdict {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+
+  .verdict-label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .verdict p {
+    font-size: 14px;
+    color: var(--text2);
+    line-height: 1.7;
+  }
+
+  /* METRIC TABLE */
+  .table-wrap {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  thead {
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+  }
+
+  th {
+    padding: 12px 16px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    color: var(--text3);
+    text-align: left;
+  }
+
+  td {
+    padding: 12px 16px;
+    color: var(--text2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .td-main { color: var(--text); font-weight: 500; }
+
+  /* STATUS ICON */
+  .status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px; height: 20px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .status.ok { background: var(--green-dim); color: var(--green); }
+  .status.warn { background: var(--amber-dim); color: var(--amber); }
+  .status.fail { background: var(--red-dim); color: var(--accent2); }
+
+  /* HIGHLIGHT ROW */
+  .row-highlight td { background: rgba(230,51,41,0.04); }
+
+  /* ACTION LIST */
+  .action-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .action-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .action-num {
+    flex-shrink: 0;
+    width: 24px; height: 24px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .action-body { flex: 1; }
+
+  .action-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .action-desc {
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+
+  .priority-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    padding: 3px 7px;
+    border-radius: 4px;
+  }
+
+  .p1 { background: var(--red-dim); color: var(--accent2); }
+  .p2 { background: var(--amber-dim); color: var(--amber); }
+  .p3 { background: var(--blue-dim); color: var(--blue); }
+
+  /* METRIC CALLOUT */
+  .metrics-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .metric-cell {
+    background: var(--bg2);
+    padding: 18px 20px;
+  }
+
+  .metric-val {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .metric-val.red { color: var(--accent); }
+  .metric-val.green { color: var(--green); }
+  .metric-val.amber { color: var(--amber); }
+
+  .metric-label {
+    font-size: 11px;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-weight: 500;
+  }
+
+  /* TRAVA BLOCK */
+  .trava-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .trava-card {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-top: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  .trava-id {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .trava-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .trava-desc {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.65;
+  }
+
+  /* CHANNEL BLOCK */
+  .channel-block {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  .channel-head {
+    padding: 16px 20px;
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .channel-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .channel-body {
+    padding: 16px 20px;
+  }
+
+  .bullet-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .bullet-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.6;
+  }
+
+  .bullet-item::before {
+    content: '→';
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-weight: 600;
+  }
+
+  /* ROADMAP */
+  .roadmap {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .roadmap-month {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .roadmap-head {
+    padding: 14px 16px;
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .roadmap-num {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 3px;
+  }
+
+  .roadmap-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .roadmap-sub {
+    font-size: 11px;
+    color: var(--text3);
+    margin-top: 2px;
+  }
+
+  .roadmap-body {
+    padding: 14px 16px;
+  }
+
+  /* CRIATIVO BLOCK */
+  .criativo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .format-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+  }
+
+  .format-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 6px;
+  }
+
+  .format-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  /* WARNING BOX */
+  .warning-box {
+    background: rgba(245,158,11,0.06);
+    border: 1px solid rgba(245,158,11,0.2);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .warning-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    line-height: 1.4;
+  }
+
+  .warning-box p {
+    font-size: 13px;
+    color: #d4a017;
+    line-height: 1.65;
+  }
+
+  .warning-box strong { color: #f5c842; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 40px;
+  }
+
+  footer .f-left {
+    font-size: 12px;
+    color: var(--text3);
+  }
+
+  footer .f-right {
+    font-size: 12px;
+    color: var(--text3);
+  }
+
+  footer span { color: var(--accent); }
+
+  /* RESP */
+  @media (max-width: 768px) {
+    .header { padding: 0 20px; }
+    .main { padding: 32px 20px; }
+    .hero { padding: 40px 20px 36px; }
+    .hero h1 { font-size: 26px; }
+    .kpis { grid-template-columns: 1fr 1fr; }
+    .trava-block { grid-template-columns: 1fr; }
+    .roadmap { grid-template-columns: 1fr; }
+    .criativo-grid { grid-template-columns: 1fr; }
+    .nav-btn { padding: 6px 10px; font-size: 12px; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo-area">
+      <div class="logo-dot"></div>
+      <span class="logo-text">V4 Company · DR-X</span>
+    </div>
+    <div class="divider-v"></div>
+    <span class="client-name">Impacto Soluções em Segurança</span>
+    <nav class="nav">
+      <button class="nav-btn active" onclick="switchTab('instagram', this)">Instagram</button>
+      <button class="nav-btn" onclick="switchTab('midia', this)">Mídia Paga</button>
+      <button class="nav-btn" onclick="switchTab('criativo', this)">Criativo</button>
+      <button class="nav-btn" onclick="switchTab('cro', this)">CRO / SEO</button>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Diagnóstico Criativo · Junho 2026</div>
+    <h1>Radiografia completa dos<br><span>canais digitais</span></h1>
+    <p class="hero-sub">Auditoria técnica de Instagram, mídia paga, direcionamento criativo e ambiente digital da Impacto Soluções em Segurança — projeto Destrava Receita Raio-X.</p>
+    <div class="kpis">
+      <div class="kpi">
+        <div class="kpi-val red">874</div>
+        <div class="kpi-label">Seguidores</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val red">3,5</div>
+        <div class="kpi-label">Curtidas/post</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val red">0</div>
+        <div class="kpi-label">Anúncios ativos</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val amber">T1+T2</div>
+        <div class="kpi-label">Travas ativas</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- ======== ABA: INSTAGRAM ======== -->
+  <div id="tab-instagram" class="tab-content active">
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <span class="section-title">Diagnóstico central</span>
+      </div>
+      <div class="verdict">
+        <div class="verdict-label">Veredito</div>
+        <p>A Impacto Soluções é uma empresa com credenciais sólidas — 21 anos de mercado, conta verificada, portfólio real — que está <strong style="color:var(--text)">invisível nas redes sociais por um problema estratégico, não operacional</strong>. O produto existe, os cases existem, a prova social existe — mas nada disso está chegando à audiência certa.</p>
+      </div>
+
+      <div class="metrics-row">
+        <div class="metric-cell">
+          <div class="metric-val red">874</div>
+          <div class="metric-label">Seguidores totais</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-val red">3,5</div>
+          <div class="metric-label">Curtidas médias/post</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-val red">0</div>
+          <div class="metric-label">Comentários (20 posts)</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-val red">60%</div>
+          <div class="metric-label">Posts com 0 curtidas</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-val red">0</div>
+          <div class="metric-label">Histórico tráfego pago</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <span class="section-title">Auditoria da bio</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Status</th>
+              <th>Diagnóstico</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-main">Foto de perfil</td>
+              <td><span class="status ok">✓</span></td>
+              <td>Logo legível em formato circular</td>
+            </tr>
+            <tr class="row-highlight">
+              <td class="td-main">Biografia (texto)</td>
+              <td><span class="status warn">△</span></td>
+              <td>Genérica — não responde "o que vende?" em 3 segundos. Falta nicho, público e diferencial.</td>
+            </tr>
+            <tr class="row-highlight">
+              <td class="td-main">CTA na bio</td>
+              <td><span class="status fail">✗</span></td>
+              <td>Nenhuma chamada para ação. Sem "Peça um orçamento" ou "Fale pelo WhatsApp"</td>
+            </tr>
+            <tr>
+              <td class="td-main">Link na bio</td>
+              <td><span class="status ok">✓</span></td>
+              <td>www.impactosoluc.com.br — funcional</td>
+            </tr>
+            <tr class="row-highlight">
+              <td class="td-main">WhatsApp direto</td>
+              <td><span class="status fail">✗</span></td>
+              <td>Não há botão de WhatsApp — exige navegação pelo site para encontrar contato</td>
+            </tr>
+            <tr class="row-highlight">
+              <td class="td-main">Localização/cidade</td>
+              <td><span class="status fail">✗</span></td>
+              <td>Não menciona BH/MG na bio — praça de atuação invisível</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <span class="section-title">Performance dos últimos 90 dias</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Post</th>
+              <th>Formato</th>
+              <th>Curtidas</th>
+              <th>Etapa</th>
+              <th>Resultado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-main">Chama a IMPACTO (futebol)</td>
+              <td>Foto</td>
+              <td style="color:var(--green);font-weight:600">11</td>
+              <td>ToFu</td>
+              <td><span class="badge green">Top performer</span></td>
+            </tr>
+            <tr>
+              <td class="td-main">Invasão em tempo real</td>
+              <td>Reel</td>
+              <td style="color:var(--green);font-weight:600">11</td>
+              <td>ToFu</td>
+              <td><span class="badge green">Top performer</span></td>
+            </tr>
+            <tr>
+              <td class="td-main">UFv Itaúna 2 — Case concluído</td>
+              <td>Carrossel</td>
+              <td style="color:var(--green);font-weight:600">9</td>
+              <td>BoFu</td>
+              <td><span class="badge green">Top performer</span></td>
+            </tr>
+            <tr>
+              <td class="td-main">O Futuro da Segurança</td>
+              <td>Carrossel</td>
+              <td>2</td>
+              <td>MoFu</td>
+              <td><span class="badge amber">Fraco</span></td>
+            </tr>
+            <tr class="row-highlight">
+              <td class="td-main">Quanto custa NÃO ter segurança</td>
+              <td>Carrossel</td>
+              <td style="color:var(--accent);font-weight:600">0</td>
+              <td>ToFu</td>
+              <td><span class="badge red">Flop</span></td>
+            </tr>
+            <tr class="row-highlight">
+              <td class="td-main">Benefícios do CFTV</td>
+              <td>Estático</td>
+              <td style="color:var(--accent);font-weight:600">0</td>
+              <td>MoFu</td>
+              <td><span class="badge red">Flop</span></td>
+            </tr>
+            <tr class="row-highlight">
+              <td class="td-main">O criminoso procura facilidade</td>
+              <td>Estático</td>
+              <td style="color:var(--accent);font-weight:600">0</td>
+              <td>ToFu</td>
+              <td><span class="badge red">Flop</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="verdict" style="margin-top:16px;border-left-color:var(--green)">
+        <div class="verdict-label" style="color:var(--green)">Padrão identificado</div>
+        <p>Conteúdo com prova real (vídeos, cases, fotos de instalação, humor contextualizado) performa <strong style="color:var(--text)">4–5× melhor</strong> que conteúdo editorial gráfico com texto conceitual.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <span class="section-title">5 problemas críticos</span>
+      </div>
+      <div class="action-list">
+        <div class="action-item">
+          <div class="action-num">1</div>
+          <div class="action-body">
+            <div class="action-title">Engajamento em colapso</div>
+            <div class="action-desc">Média de 3,5 curtidas/post com múltiplos posts em 0 curtidas e 0 comentários. O algoritmo parou de entregar o conteúdo porque a audiência parou de interagir.</div>
+          </div>
+          <span class="priority-tag p1">Crítico</span>
+        </div>
+        <div class="action-item">
+          <div class="action-num">2</div>
+          <div class="action-body">
+            <div class="action-title">Conteúdo invertido</div>
+            <div class="action-desc">O que mais funciona (cases reais, vídeos de prova) representa apenas 10% do conteúdo. O que menos funciona (artes gráficas conceituais) representa 85% das publicações.</div>
+          </div>
+          <span class="priority-tag p1">Crítico</span>
+        </div>
+        <div class="action-item">
+          <div class="action-num">3</div>
+          <div class="action-body">
+            <div class="action-title">Bio sem conversão</div>
+            <div class="action-desc">A bio não responde "o que você vende, para quem e como eu te contrato" em 3 segundos. Não há CTA, não há WhatsApp, não há cidade/praça de atuação.</div>
+          </div>
+          <span class="priority-tag p1">Crítico</span>
+        </div>
+        <div class="action-item">
+          <div class="action-num">4</div>
+          <div class="action-body">
+            <div class="action-title">Zero investimento em tráfego pago</div>
+            <div class="action-desc">Em 2+ anos de perfil ativo, nunca houve um anúncio no Meta. Com engajamento em queda, o orgânico puro não é mais capaz de sustentar crescimento.</div>
+          </div>
+          <span class="priority-tag p2">Importante</span>
+        </div>
+        <div class="action-item">
+          <div class="action-num">5</div>
+          <div class="action-body">
+            <div class="action-title">Ausência total de comunidade</div>
+            <div class="action-desc">Zero comentários em 20 posts consecutivos. Não há comunidade — há um painel de anúncios disfarçado de rede social. Nenhuma pergunta feita ao público em nenhuma legenda.</div>
+          </div>
+          <span class="priority-tag p2">Importante</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <span class="section-title">Plano de ação — 90 dias</span>
+      </div>
+      <div class="action-list">
+        <div class="action-item">
+          <div class="action-num">↯</div>
+          <div class="action-body">
+            <div class="action-title">Reescrever a bio (menos de 24h)</div>
+            <div class="action-desc">"📹 CFTV | Controle de Acesso | Alarmes | Monitoramento | Desde 2005 | BH e região | 👇 Solicite um orçamento grátis"</div>
+          </div>
+          <span class="priority-tag p1">P1 — Urgente</span>
+        </div>
+        <div class="action-item">
+          <div class="action-num">↯</div>
+          <div class="action-body">
+            <div class="action-title">Adicionar WhatsApp direto na bio</div>
+            <div class="action-desc">Substituir link do site por Linktree com WhatsApp como primeiro botão. Medir cliques semanalmente.</div>
+          </div>
+          <span class="priority-tag p1">P1 — Urgente</span>
+        </div>
+        <div class="action-item">
+          <div class="action-num">↯</div>
+          <div class="action-body">
+            <div class="action-title">Rebranding editorial: parar artes genéricas</div>
+            <div class="action-desc">Substituir artes conceituais por conteúdo real: fotos de câmeras instaladas, vídeos de instalação, bastidores de obra. Priorizar posts de BoFu (cases, projetos, depoimentos).</div>
+          </div>
+          <span class="priority-tag p1">P1 — Urgente</span>
+        </div>
+        <div class="action-item">
+          <div class="action-num">↯</div>
+          <div class="action-body">
+            <div class="action-title">Produzir 2 Reels por semana</div>
+            <div class="action-desc">Reels de invasão detectada por câmera, casos de sucesso com antes/depois, bastidores de obras: equipe, equipamentos, desafios técnicos.</div>
+          </div>
+          <span class="priority-tag p2">P2 — Importante</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ======== ABA: MÍDIA PAGA ======== -->
+  <div id="tab-midia" class="tab-content">
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <span class="section-title">Ponto crítico de partida</span>
+      </div>
+      <div class="warning-box">
+        <div class="warning-icon">⚠</div>
+        <p>O histórico da Impacto com mídia paga se resume a <strong>3 impulsionamentos genéricos no Meta — sem público-alvo definido</strong>. No B2B Enterprise de alto ticket, essa prática representa desperdício integral de verba. A transição exige abandono de métricas de vaidade por indicadores reais: custo por SQL, taxa de conversão proposta/fechamento e velocidade de pipeline.</p>
+      </div>
+      <div class="metrics-row">
+        <div class="metric-cell">
+          <div class="metric-val">6–10</div>
+          <div class="metric-label">Decisores por conta Enterprise</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-val amber">R$ 25k</div>
+          <div class="metric-label">Investimento mínimo/canal/mês</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-val">60 dias</div>
+          <div class="metric-label">Período mínimo de teste válido</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <span class="section-title">Arquitetura de canais recomendada</span>
+      </div>
+      <div class="channel-block">
+        <div class="channel-head">
+          <span class="channel-name">Canal primário — LinkedIn Ads</span>
+          <span class="badge blue">Geração de demanda</span>
+        </div>
+        <div class="channel-body">
+          <div class="bullet-list">
+            <div class="bullet-item">Única plataforma com dados demográficos profissionais precisos para impactar o comitê de compra Enterprise</div>
+            <div class="bullet-item">Função de cargo: Engenharia, TI, Operações, Facilities</div>
+            <div class="bullet-item">Senioridade: Diretores, VPs, Gerentes, C-Level</div>
+            <div class="bullet-item">Segmentação vertical: Hospitais / Usinas Solares / Galpões de Logística</div>
+            <div class="bullet-item">Matched Audiences via domínios corporativos — mínimo 300 membros correspondidos por lista</div>
+            <div class="bullet-item">Rotação de criativos a cada 4–6 semanas para evitar fadiga de audiência</div>
+          </div>
+        </div>
+      </div>
+      <div class="channel-block">
+        <div class="channel-head">
+          <span class="channel-name">Canal capturador — Google Ads (Search)</span>
+          <span class="badge green">Captura de demanda ativa</span>
+        </div>
+        <div class="channel-body">
+          <div class="bullet-list">
+            <div class="bullet-item">Captura demanda ativa — usuários que já decidiram buscar solução</div>
+            <div class="bullet-item">Grupos por intenção e vertical (hospitalar, solar, logística)</div>
+            <div class="bullet-item">Ad copy qualificador: afastar residencial, concorrentes e buscas por emprego</div>
+            <div class="bullet-item">CTA de alto compromisso: "Fale com um Engenheiro Especialista" — não "Saiba Mais"</div>
+            <div class="bullet-item">SKAGs abolidos: grupos temáticos de 5–15 palavras-chave por grupo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <span class="section-title">Distribuição de orçamento — Google Ads</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nível de intenção</th>
+              <th>% Orçamento</th>
+              <th>Exemplos de termos</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-main">Alta intenção</td>
+              <td><span style="color:var(--green);font-weight:700">60%</span></td>
+              <td>cftv ip hospitalar, segurança perimetral usina solar, controle de acesso facial galpão logístico</td>
+            </tr>
+            <tr>
+              <td class="td-main">Média intenção</td>
+              <td><span style="color:var(--amber);font-weight:700">30%</span></td>
+              <td>câmeras térmicas longo alcance, integrador segurança eletrônica enterprise, sistema SDAI</td>
+            </tr>
+            <tr>
+              <td class="td-main">Baixa intenção</td>
+              <td><span style="color:var(--text3);font-weight:700">10%</span></td>
+              <td>como reduzir alarmes falsos perímetro, normas segurança usina fotovoltaica — ativar apenas com material rico disponível</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <span class="section-title">Panorama competitivo</span>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Teltex Tecnologia</div>
+            <span class="badge red">Forte</span>
+          </div>
+          <div class="bullet-list">
+            <div class="bullet-item">Presença robusta nos 3 verticais estratégicos da Impacto</div>
+            <div class="bullet-item">Estudos de caso técnicos reais como diferencial publicitário</div>
+            <div class="bullet-item">Portal de parceiros e certificação como gancho consultivo</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Ôguen (Tecnologia Israelense)</div>
+            <span class="badge red">Forte</span>
+          </div>
+          <div class="bullet-list">
+            <div class="bullet-item">Líder em proteção perimetral de usinas com radares Magos</div>
+            <div class="bullet-item">Criativos prontos para integradores parceiros anunciarem</div>
+            <div class="bullet-item">Ôguen Academy como isca de captação de parceiros</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Grupo Haganá</div>
+            <span class="badge amber">Médio</span>
+          </div>
+          <div class="bullet-list">
+            <div class="bullet-item">Posicionamento "segurança israelense de alta confiabilidade"</div>
+            <div class="bullet-item">Depoimentos reais + premiações de RH como validação</div>
+            <div class="bullet-item">Forte em logística (SIGAH) e hospitalar</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Convergint Brasil</div>
+            <span class="badge amber">Médio</span>
+          </div>
+          <div class="bullet-list">
+            <div class="bullet-item">IA embarcada: Ambient.ai e Hakimo para computer vision</div>
+            <div class="bullet-item">Webinars técnicos e presença em grandes feiras (ISC Brasil)</div>
+            <div class="bullet-item">Posicionamento: transformação digital e inovação</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <span class="section-title">Roadmap de ativação — 3 meses</span>
+      </div>
+      <div class="roadmap">
+        <div class="roadmap-month">
+          <div class="roadmap-head">
+            <div class="roadmap-num">Mês 1</div>
+            <div class="roadmap-title">Infraestrutura e rastreamento</div>
+            <div class="roadmap-sub">Consolidar a base antes de investir</div>
+          </div>
+          <div class="roadmap-body">
+            <div class="bullet-list">
+              <div class="bullet-item">Auditoria técnica das tags Google Ads e LinkedIn Insight Tag</div>
+              <div class="bullet-item">Integração das APIs de conversão offline com o CRM</div>
+              <div class="bullet-item">Upload de listas de contas-alvo via Matched Audiences</div>
+              <div class="bullet-item">Validação mínima: 300 membros correspondidos por lista</div>
+            </div>
+          </div>
+        </div>
+        <div class="roadmap-month">
+          <div class="roadmap-head">
+            <div class="roadmap-num">Mês 2</div>
+            <div class="roadmap-title">Ativação piloto</div>
+            <div class="roadmap-sub">Aprender antes de escalar</div>
+          </div>
+          <div class="roadmap-body">
+            <div class="bullet-list">
+              <div class="bullet-item">Google Search com foco em termos de alta intenção (60%)</div>
+              <div class="bullet-item">LinkedIn Ads segmentado por Função + Senioridade + Vertical</div>
+              <div class="bullet-item">Ativação de vídeos demonstrando CFTV-IP em campo real</div>
+              <div class="bullet-item">Monitoramento semanal de CPL e taxa de SQL</div>
+            </div>
+          </div>
+        </div>
+        <div class="roadmap-month">
+          <div class="roadmap-head">
+            <div class="roadmap-num">Mês 3</div>
+            <div class="roadmap-title">Refinamento e otimização</div>
+            <div class="roadmap-sub">Migrar algoritmos para conversão</div>
+          </div>
+          <div class="roadmap-body">
+            <div class="bullet-list">
+              <div class="bullet-item">Exclusão de termos irrelevantes, ampliação de negativos</div>
+              <div class="bullet-item">Ativação de Document Ads para decisores técnicos</div>
+              <div class="bullet-item">Otimização de lances com base nos SQLs registrados no CRM</div>
+              <div class="bullet-item">Avaliação de expansão de budget por canal e vertical</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="verdict">
+        <div class="verdict-label">Premissa técnica inegociável</div>
+        <p>Toda a estratégia de mídia paga é condicionada à resolução da <strong style="color:var(--text)">T1 (Cegueira Operacional)</strong>. Sem CRM ativo e rastreamento configurado, os algoritmos são alimentados com dados corrompidos — e escalam o erro, não o resultado. O Mês 1 não é opcional: é o pré-requisito técnico para que os Meses 2 e 3 gerem retorno real e mensurável.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ======== ABA: CRIATIVO ======== -->
+  <div id="tab-criativo" class="tab-content">
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <span class="section-title">LinkedIn Ads — formatos por etapa da jornada</span>
+      </div>
+      <div class="criativo-grid">
+        <div class="format-card">
+          <div class="format-tag">Atração · Imagem única</div>
+          <div class="format-title">Ângulo emocional — dor setorial</div>
+          <div class="bullet-list" style="margin-top:10px">
+            <div class="bullet-item">Fundo escuro + foto real de obra ou equipamento instalado</div>
+            <div class="bullet-item">Frase de impacto em destaque, logo discreto no rodapé</div>
+            <div class="bullet-item">Hospitalar: "Câmera instalada. Quem tem acesso ao bloco cirúrgico agora?"</div>
+            <div class="bullet-item">Usinas: "Uma câmera térmica detecta invasor a 800m. Quantos metros sua usina tem descobertos?"</div>
+            <div class="bullet-item">Logística: "Seu galpão tem controle de acesso facial? O Mercado Livre já tem o nosso."</div>
+          </div>
+        </div>
+        <div class="format-card">
+          <div class="format-tag">Consideração · Vídeo</div>
+          <div class="format-title">Ângulo de prova — demonstração técnica</div>
+          <div class="bullet-list" style="margin-top:10px">
+            <div class="bullet-item">0–3s: cena de câmera em campo — sem introdução, sem logo</div>
+            <div class="bullet-item">3–15s: cenário de risco — perímetro de usina, corredor hospitalar</div>
+            <div class="bullet-item">15–45s: câmera em ação — Auto Tracking, Speed Dome, câmera térmica</div>
+            <div class="bullet-item">45s+: dados da obra e CTA de engenheiro</div>
+            <div class="bullet-item">Legenda obrigatória — 85% dos vídeos do LinkedIn são assistidos sem áudio</div>
+          </div>
+        </div>
+        <div class="format-card">
+          <div class="format-tag">Avaliação · Document Ad</div>
+          <div class="format-title">Ângulo racional — conformidade e autoridade</div>
+          <div class="bullet-list" style="margin-top:10px">
+            <div class="bullet-item">Hospitalar: "Guia de Controle de Acesso para Hospitais — NR35, Biometria e CFTV"</div>
+            <div class="bullet-item">Usinas: "Checklist de Segurança Perimetral — ABNT NBR 16384 e câmeras térmicas"</div>
+            <div class="bullet-item">Logística: "Guia de Proteção para CDs — LPR, Controle de Docas e Monitoramento Facial"</div>
+            <div class="bullet-item">8 a 12 páginas: problema → norma → solução → case da Impacto → CTA</div>
+          </div>
+        </div>
+        <div class="format-card">
+          <div class="format-tag">Nutrição ABM · Carrossel</div>
+          <div class="format-title">Ângulo de prova — sequência de solução</div>
+          <div class="bullet-list" style="margin-top:10px">
+            <div class="bullet-item">6 a 8 cards: dado de risco → gap de segurança → solução 1 → solução 2 → solução 3 → integração → case → CTA</div>
+            <div class="bullet-item">Fundo consistente em todos os cards — paleta azul escuro + branco</div>
+            <div class="bullet-item">Máximo 20 palavras por card</div>
+            <div class="bullet-item">Nunca mencionar preço — público Enterprise não decide por preço no LinkedIn</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <span class="section-title">Regras universais de criativo</span>
+      </div>
+      <div class="cards">
+        <div class="card" style="border-left:3px solid var(--accent)">
+          <div class="card-head">
+            <div class="card-title">O que NUNCA fazer</div>
+            <span class="badge red">Proibido</span>
+          </div>
+          <div class="bullet-list">
+            <div class="bullet-item">Logo nos primeiros 3 segundos do vídeo — garante skip antes da mensagem chegar</div>
+            <div class="bullet-item">Frases clichê: "Protegemos o que importa", "Tecnologia de ponta" — ditas por todos os concorrentes</div>
+            <div class="bullet-item">CTA fraco: "Saiba Mais", "Acesse nosso site" — não geram ação mensurável</div>
+            <div class="bullet-item">Falar de preço ou desconto em qualquer criativo de atração</div>
+            <div class="bullet-item">Vídeo sem legenda — 85% dos vídeos são assistidos no mudo</div>
+            <div class="bullet-item">Anúncio enviando para a home genérica do site — Message Match quebra</div>
+            <div class="bullet-item">Stock photos — a Impacto tem fotos reais de obras; sempre usar</div>
+          </div>
+        </div>
+        <div class="card" style="border-left:3px solid var(--green)">
+          <div class="card-head">
+            <div class="card-title">O que SEMPRE fazer</div>
+            <span class="badge green">Obrigatório</span>
+          </div>
+          <div class="bullet-list">
+            <div class="bullet-item">Fotos e vídeos reais de obras e equipamentos instalados — prova concreta é o maior diferencial</div>
+            <div class="bullet-item">Mencionar clientes reais: Biocor, Mercado Livre, Appian valem mais que qualquer slogan</div>
+            <div class="bullet-item">Incluir dado numérico de prova: "44 usinas", "9 anos de contrato", "19 usinas em 2026"</div>
+            <div class="bullet-item">CTA de alto compromisso: "Fale com um engenheiro especialista" — não "Saiba Mais"</div>
+            <div class="bullet-item">Qualificador em todo anúncio Google: "Para hospitais, usinas e grandes infraestruturas"</div>
+            <div class="bullet-item">Landing page específica para cada anúncio — nunca a home genérica</div>
+            <div class="bullet-item">Rotacionar criativos no LinkedIn a cada 4–6 semanas</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <span class="section-title">Prioridade de produção</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Prioridade</th>
+              <th>Conteúdo</th>
+              <th>Canal de uso</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="badge red">P1</span></td>
+              <td class="td-main">Reel de câmera em campo — Auto Tracking ou câmera térmica em usina real</td>
+              <td>Meta Ads + LinkedIn Vídeo</td>
+            </tr>
+            <tr>
+              <td><span class="badge red">P1</span></td>
+              <td class="td-main">Fotos de obra concluída — usina, hospital ou galpão com equipamentos e equipe</td>
+              <td>LinkedIn Imagem + Meta Estático</td>
+            </tr>
+            <tr>
+              <td><span class="badge red">P1</span></td>
+              <td class="td-main">Reel de bastidores de instalação — equipe em campo, infraestrutura, desafio técnico</td>
+              <td>Meta Ads orgânico → pago</td>
+            </tr>
+            <tr>
+              <td><span class="badge amber">P2</span></td>
+              <td class="td-main">Material técnico em PDF — guia de normas por vertical (hospitalar, solar, logística)</td>
+              <td>LinkedIn Document Ad</td>
+            </tr>
+            <tr>
+              <td><span class="badge amber">P2</span></td>
+              <td class="td-main">Cards de carrossel — sequência de solução por vertical (6 a 8 cards)</td>
+              <td>LinkedIn Carrossel ABM</td>
+            </tr>
+            <tr>
+              <td><span class="badge blue">P3</span></td>
+              <td class="td-main">Depoimento em vídeo de cliente satisfeito — Rogério apresentando resultado do projeto</td>
+              <td>Meta e LinkedIn — Prova Social</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ======== ABA: CRO / SEO ======== -->
+  <div id="tab-cro" class="tab-content">
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <span class="section-title">Veredito</span>
+      </div>
+      <div class="verdict">
+        <div class="verdict-label">Diagnóstico central</div>
+        <p>O ambiente digital atual da Impacto é <strong style="color:var(--text)">incapaz de transformar atenção em interesse acionável</strong>. Não há hierarquia de informação para o ICP B2B, nenhuma prova social visível, zero formulário de captura e CTAs que não rastreiam. T2 (Invisibilidade) e T4 (Rejeição/Interesse) operam em paralelo. Nenhum investimento em mídia paga deve ser ativado antes da reconstrução do ambiente.</p>
+      </div>
+
+      <div class="trava-block">
+        <div class="trava-card">
+          <div class="trava-id">T2 Confirmada</div>
+          <div class="trava-name">Invisibilidade / Exposição</div>
+          <div class="trava-desc">O site não posiciona a empresa para ser encontrada organicamente. Title tag sem palavra-chave, zero conteúdo indexável, sem segmentação por vertical. Quem busca no Google não encontra a Impacto.</div>
+        </div>
+        <div class="trava-card">
+          <div class="trava-id">T4 Confirmada</div>
+          <div class="trava-name">Rejeição / Interesse</div>
+          <div class="trava-desc">Quem chega ao site — mesmo por indicação — não encontra o ambiente que sustenta o interesse de um decisor Enterprise: sem prova nomeada, sem vertical, sem jornada estruturada, sem CTA que capture dados.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <span class="section-title">5 achados críticos</span>
+      </div>
+      <div class="action-list">
+        <div class="action-item">
+          <div class="action-num">1</div>
+          <div class="action-body">
+            <div class="action-title">Proposta de valor sem direcionamento de ICP</div>
+            <div class="action-desc">Headline genérica: "Segurança Eletrônica para sua empresa". Um Diretor de Infraestrutura da Rede D'Or chega nessa página e não se reconhece. Subheadline "Protegemos o que é valioso para você com tecnologia de ponta" é copy de commodity — qualquer empresa do setor poderia assinar.</div>
+          </div>
+          <span class="priority-tag p1">Crítico</span>
+        </div>
+        <div class="action-item">
+          <div class="action-num">2</div>
+          <div class="action-body">
+            <div class="action-title">Arquitetura da informação não orienta o decisor B2B</div>
+            <div class="action-desc">Menu com apenas Home, Serviços, Sobre Nós e Clientes. Não há segmentação por vertical (Hospitais, Usinas Solares, Logística), não há seção de cases, não há blog. Sem isso, a taxa de rejeição de tráfego frio será superior a 85%.</div>
+          </div>
+          <span class="priority-tag p1">Crítico</span>
+        </div>
+        <div class="action-item">
+          <div class="action-num">3</div>
+          <div class="action-body">
+            <div class="action-title">CTAs e rastreabilidade: funil morto antes de nascer</div>
+            <div class="action-desc">O único CTA abre WhatsApp diretamente. Não existe formulário de captura, não existe landing page por vertical, não existe nenhum mecanismo de qualificação. GA4 presente mas sem eventos configurados — dado volumétrico e inútil para diagnóstico comercial.</div>
+          </div>
+          <span class="priority-tag p1">Crítico</span>
+        </div>
+        <div class="action-item">
+          <div class="action-num">4</div>
+          <div class="action-body">
+            <div class="action-title">Prova social: o maior ativo está completamente escondido</div>
+            <div class="action-desc">A Impacto atende a Rede D'Or/Biocor há 9 anos, executou 44 usinas em 2024, tem equipe alocada permanentemente no Hospital Barreiro e possui contrato com a Appian para 19 usinas. Nenhum desses nomes aparece no site. A seção "Nossos Clientes" existe mas não nomeia clientes.</div>
+          </div>
+          <span class="priority-tag p1">Crítico</span>
+        </div>
+        <div class="action-item">
+          <div class="action-num">5</div>
+          <div class="action-body">
+            <div class="action-title">SEO: invisível para quem busca ativamente</div>
+            <div class="action-desc">Title tag: "Impacto Soluções E Segurança" — sem cidade, sem serviço, sem vertical. Sem meta description. Sem páginas de conteúdo indexável. Um Gestor de Segurança que busca "segurança eletrônica perimetral usinas solares Minas Gerais" nunca encontrará a Impacto organicamente.</div>
+          </div>
+          <span class="priority-tag p2">Grave</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <span class="section-title">Scorecard consolidado</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Critério</th>
+              <th>Status</th>
+              <th>O que precisa mudar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="row-highlight">
+              <td class="td-main">Headline voltada ao ICP</td>
+              <td><span class="status fail">✗</span></td>
+              <td>Mencionar vertical (hospital, usina, logística) e cargo do decisor</td>
+            </tr>
+            <tr class="row-highlight">
+              <td class="td-main">Prova social nomeada</td>
+              <td><span class="status fail">✗</span></td>
+              <td>Biocor, Mercado Livre, Appian — com dados de resultado</td>
+            </tr>
+            <tr class="row-highlight">
+              <td class="td-main">Segmentação por vertical</td>
+              <td><span class="status fail">✗</span></td>
+              <td>3 landing pages por vertical com headline específica</td>
+            </tr>
+            <tr class="row-highlight">
+              <td class="td-main">Formulário de captura</td>
+              <td><span class="status fail">✗</span></td>
+              <td>4 campos: nome, empresa, cargo, WhatsApp — integrado ao HubSpot</td>
+            </tr>
+            <tr>
+              <td class="td-main">Rastreamento (Pixel + GA4)</td>
+              <td><span class="status warn">△</span></td>
+              <td>GA4 presente mas sem eventos. Pixel Meta ausente.</td>
+            </tr>
+            <tr class="row-highlight">
+              <td class="td-main">Title tag e meta description</td>
+              <td><span class="status fail">✗</span></td>
+              <td>Incluir cidade, serviço e verticais. Meta description com CTA.</td>
+            </tr>
+            <tr class="row-highlight">
+              <td class="td-main">Páginas indexáveis por vertical</td>
+              <td><span class="status fail">✗</span></td>
+              <td>Criar 3 páginas de serviço indexáveis + cases publicados</td>
+            </tr>
+            <tr>
+              <td class="td-main">Site carregando corretamente</td>
+              <td><span class="status ok">✓</span></td>
+              <td>Link funcional, velocidade adequada — base técnica existe</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <span class="section-title">Headlines recomendadas por vertical — Landing Pages</span>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Vertical Hospitalar</div>
+            <span class="badge blue">LP 1</span>
+          </div>
+          <p style="font-size:14px;color:var(--text);font-weight:600;margin-bottom:6px">"Segurança Eletrônica para Hospitais de Alta Complexidade — CFTV, Controle de Acesso e SDAI Integrados"</p>
+          <p style="font-size:12px;color:var(--text3)">"Rede D'Or Biocor há 9 anos. Solicite avaliação técnica gratuita."</p>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Vertical Usinas Solares</div>
+            <span class="badge blue">LP 2</span>
+          </div>
+          <p style="font-size:14px;color:var(--text);font-weight:600;margin-bottom:6px">"Proteção Perimetral para Usinas Fotovoltaicas — Câmeras Térmicas IP e Analítica Avançada"</p>
+          <p style="font-size:12px;color:var(--text3)">"44 usinas instaladas em 2024. Conformidade com ABNT NBR 16384. Solicite proposta técnica."</p>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Vertical Logística</div>
+            <span class="badge blue">LP 3</span>
+          </div>
+          <p style="font-size:14px;color:var(--text);font-weight:600;margin-bottom:6px">"Segurança para Centros de Distribuição e Galpões Logísticos — LPR, Controle de Acesso Facial e Monitoramento 24h"</p>
+          <p style="font-size:12px;color:var(--text3)">"Atendemos operações do Mercado Livre e Shopee. Fale com um engenheiro especialista."</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <span class="section-title">Plano de ação — reconstrução do ambiente</span>
+      </div>
+      <div class="action-list">
+        <div class="action-item">
+          <div class="action-num">↯</div>
+          <div class="action-body">
+            <div class="action-title">Corrigir title tag (hoje)</div>
+            <div class="action-desc">"Segurança Eletrônica para Hospitais, Usinas e Logística | BH e Nacional | Impacto Soluções" — responsável: Dev/Agência</div>
+          </div>
+          <span class="priority-tag p1">Hoje</span>
+        </div>
+        <div class="action-item">
+          <div class="action-num">↯</div>
+          <div class="action-body">
+            <div class="action-title">Adicionar nomes de clientes na seção "Nossos Clientes"</div>
+            <div class="action-desc">Biocor, Mercado Livre, Appian — com dados de resultado. Responsável: Rogério</div>
+          </div>
+          <span class="priority-tag p1">Hoje</span>
+        </div>
+        <div class="action-item">
+          <div class="action-num">↯</div>
+          <div class="action-body">
+            <div class="action-title">Instalar Meta Pixel + configurar eventos GA4 (Semana 1)</div>
+            <div class="action-desc">Eventos: clique no WhatsApp, tempo na página > 60s, scroll 75%. Criar UTMs padronizados para todos os links que chegam ao site.</div>
+          </div>
+          <span class="priority-tag p2">Semana 1</span>
+        </div>
+        <div class="action-item">
+          <div class="action-num">↯</div>
+          <div class="action-body">
+            <div class="action-title">Landing pages por vertical — Quick Win T4 (Mês 1–2)</div>
+            <div class="action-desc">LP Hospitalar, LP Usinas Solares e LP Logística — cada uma com headline específica, prova social nomeada, formulário de 4 campos e CTA de engenheiro. Consultor + Dev.</div>
+          </div>
+          <span class="priority-tag p3">Mês 1–2</span>
+        </div>
+      </div>
+      <div class="verdict" style="margin-top:20px;border-left-color:var(--accent)">
+        <div class="verdict-label">Regra inegociável</div>
+        <p>Enviar tráfego pago para o site atual é pagar para aumentar a taxa de rejeição. Um visitante que chegue via LinkedIn Ads ou Google Ads e não encontre seu vertical, sua prova social ou um CTA rastreável sai em menos de 10 segundos — e o orçamento vai embora com ele. <strong style="color:var(--text)">O Quick Win prescrito é a Landing Page V4, construída por vertical.</strong></p>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-left">V4 Company · Projeto Destrava Receita Raio-X (DR-X) · <span>Impacto Soluções em Segurança</span></div>
+  <div class="f-right">Diagnóstico elaborado em 16/06/2026 · Consultor: Gilberto Maciel</div>
+</footer>
+
+<script>
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+
+</body>
+</html>
