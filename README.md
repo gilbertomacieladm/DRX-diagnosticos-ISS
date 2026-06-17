@@ -1,4 +1,3 @@
-# DRX-diagnosticos-ISS
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -731,6 +730,7 @@
       <button class="nav-btn" onclick="switchTab('midia', this)">Mídia Paga</button>
       <button class="nav-btn" onclick="switchTab('criativo', this)">Criativo</button>
       <button class="nav-btn" onclick="switchTab('cro', this)">CRO / SEO</button>
+      <button class="nav-btn" onclick="switchTab('sintese', this)">Síntese Executiva</button>
     </nav>
   </div>
 </header>
@@ -1589,6 +1589,251 @@
       <div class="verdict" style="margin-top:20px;border-left-color:var(--accent)">
         <div class="verdict-label">Regra inegociável</div>
         <p>Enviar tráfego pago para o site atual é pagar para aumentar a taxa de rejeição. Um visitante que chegue via LinkedIn Ads ou Google Ads e não encontre seu vertical, sua prova social ou um CTA rastreável sai em menos de 10 segundos — e o orçamento vai embora com ele. <strong style="color:var(--text)">O Quick Win prescrito é a Landing Page V4, construída por vertical.</strong></p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ======== ABA: SÍNTESE EXECUTIVA ======== -->
+  <div id="tab-sintese" class="tab-content">
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <span class="section-title">Contexto estratégico</span>
+      </div>
+      <div class="verdict">
+        <div class="verdict-label">A empresa e o momento atual</div>
+        <p>A Impacto Soluções em Segurança é uma integradora B2B Enterprise de segurança eletrônica de alta complexidade, com 9 anos de operação formal, sediada em Belo Horizonte (MG). Os sócios Rogério Castro e Edson Leonardo acumulam 16–18 anos de experiência técnica conjunta em campo.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Indicador</th><th>Dado Real</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="td-main">Faturamento 2023</td><td>R$ 2.000.000</td></tr>
+            <tr><td class="td-main">Faturamento 2024</td><td style="color:var(--green);font-weight:600">R$ 6.000.000</td></tr>
+            <tr class="row-highlight"><td class="td-main">Faturamento 2025</td><td style="color:var(--amber);font-weight:600">R$ 6.000.000 — platô, crescimento zero</td></tr>
+            <tr><td class="td-main">Meta 2026</td><td style="color:var(--text);font-weight:600">R$ 12.000.000</td></tr>
+            <tr><td class="td-main">Headcount CLT</td><td>14–15 colaboradores (expansão prevista +10)</td></tr>
+            <tr class="row-highlight"><td class="td-main">Canal Digital de Receita</td><td style="color:var(--accent);font-weight:600">0% — 100% indicações e networking</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <span class="section-title">Dimensionamento de mercado — TAM · SAM · SOM</span>
+      </div>
+      <div class="verdict" style="border-left-color:var(--green)">
+        <div class="verdict-label" style="color:var(--green)">O mercado não é o problema</div>
+        <p>O setor de segurança eletrônica no Brasil projeta <strong style="color:var(--text)">R$ 19 bilhões em 2026</strong> (crescimento de 18,8% a.a., ABESE). A meta da Impacto de R$ 12 milhões representa capturar menos de 1% do mercado endereçável de alta complexidade — o gargalo não é o tamanho do mercado.</p>
+      </div>
+      <div class="metrics-row" style="margin-bottom:16px">
+        <div class="metric-cell">
+          <div class="metric-val">R$ 19 Bi</div>
+          <div class="metric-label">TAM — Segurança Eletrônica Brasil 2026</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-val amber">R$ 1,5 Bi</div>
+          <div class="metric-label">SAM — B2B Enterprise (Hospitais + Solar + Logística)</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-val green">0,79%</div>
+          <div class="metric-label">SOM — Fatia necessária para atingir meta de R$ 12 Mi</div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Vertical</th><th>Base Mapeada</th><th>Valor Anual do Segmento</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-main">Hospitalar</td>
+              <td>800 hospitais com mais de 200 leitos</td>
+              <td style="color:var(--text);font-weight:600">R$ 400.000.000</td>
+            </tr>
+            <tr>
+              <td class="td-main">Usinas Solares</td>
+              <td>1.200 usinas de grande porte</td>
+              <td style="color:var(--text);font-weight:600">R$ 360.000.000</td>
+            </tr>
+            <tr>
+              <td class="td-main">Logística A/A+</td>
+              <td>1.880 galpões de alto padrão</td>
+              <td style="color:var(--text);font-weight:600">R$ 752.000.000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <span class="section-title">Diagnóstico da trava governante</span>
+      </div>
+      <div class="trava-block" style="grid-template-columns:1fr">
+        <div class="trava-card">
+          <div class="trava-id">Trava Governante Confirmada</div>
+          <div class="trava-name">T1 — Cegueira Operacional</div>
+          <div class="trava-desc">Embora o diagnóstico qualitativo aponte falhas de invisibilidade (T2) e rejeição de tráfego frio (T4), os três testes objetivos do método DR-X confirmam que a trava governante é T1. Sem curar a cegueira, qualquer investimento em exposição ou tráfego escala o erro — não o resultado.</div>
+        </div>
+      </div>
+      <div class="warning-box">
+        <div class="warning-icon">⚠</div>
+        <p><strong>Regra de Ouro do Sistema DR-X:</strong> Uma trava só é homologada se passar em pelo menos 2 dos 3 testes abaixo. A T1 passou nos 3 testes. Atacar T2 ou T4 antes de resolver T1 é otimização local — dispersão de recurso sem impacto no Throughput.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Teste</th><th>Pergunta Central</th><th>Resultado para a Impacto</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-main">1. Acúmulo<br><span style="font-size:11px;color:var(--text3);font-weight:400">Inventário represado</span></td>
+              <td>Há estoque parado ANTES desta etapa?</td>
+              <td><span class="badge green">✅ Confirmado</span><span style="display:block;margin-top:6px;font-size:12px;color:var(--text2)">9 anos de cases (Biocor, 44 usinas, Appian) sem nenhuma exposição digital. Autoridade invisível ao mercado.</span></td>
+            </tr>
+            <tr>
+              <td class="td-main">2. Ociosidade<br><span style="font-size:11px;color:var(--text3);font-weight:400">Capacidade desperdiçada</span></td>
+              <td>Há capacidade ociosa DEPOIS desta etapa?</td>
+              <td><span class="badge green">✅ Confirmado</span><span style="display:block;margin-top:6px;font-size:12px;color:var(--text2)">Perfil Instagram: 874 seguidores, 3,5 curtidas/post, mais de 60% dos posts com zero engajamento. Nenhum lead digital qualificado gerado.</span></td>
+            </tr>
+            <tr>
+              <td class="td-main">3. Impulso<br><span style="font-size:11px;color:var(--text3);font-weight:400">Simulação de escala</span></td>
+              <td>Se dobrarmos a entrada hoje, o sistema colapsa aqui?</td>
+              <td><span class="badge green">✅ Confirmado</span><span style="display:block;margin-top:6px;font-size:12px;color:var(--text2)">Investir R$ 15k/mês em tráfego hoje resultaria em desperdício total: site sem headline segmentada, sem cases, sem pixel, GA4 sem eventos de conversão configurados.</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <span class="section-title">Efeitos indesejados mapeados (UDEs)</span>
+      </div>
+      <div class="action-list">
+        <div class="action-item">
+          <div class="action-num">U1</div>
+          <div class="action-body">
+            <div class="action-title">Escassez de capital humano</div>
+            <div class="action-desc">O crescimento não é limitado por falta de contratos, mas pela incapacidade de contratar e reter técnicos dispostos a trabalhar 20 dias fora de casa. Alta rotatividade nos primeiros 90 dias gera desperdício massivo em admissões, EPIs e NRs.</div>
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-num">U2</div>
+          <div class="action-body">
+            <div class="action-title">Retrabalho técnico de campo</div>
+            <div class="action-desc">Contratações emergenciais baixaram o nível técnico das equipes. Erros de dimensionamento geram deslocamentos de supervisores seniores de avião para corrigir obras em outros estados, destruindo a margem dos projetos.</div>
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-num">U3</div>
+          <div class="action-body">
+            <div class="action-title">Proposta artesanal e lenta</div>
+            <div class="action-desc">Cada orçamento consome 5 dias úteis dos sócios: visitas físicas, cotações de frete e ligações para distribuidores — sem tabelas parametrizadas ou processo estruturado.</div>
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-num">U4</div>
+          <div class="action-body">
+            <div class="action-title">Ciclo de venda longo e opaco</div>
+            <div class="action-desc">Negociações com grandes grupos arrastam-se de 6 meses a 1,5 ano. Acesso fica preso em gerentes intermediários sem chegar aos C-Levels/Diretores decisores.</div>
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-num">U5</div>
+          <div class="action-body">
+            <div class="action-title">Balizador de preço de concorrentes</div>
+            <div class="action-desc">Empresas solicitam propostas técnicas detalhadas da Impacto apenas para cumprir política de 3 cotações e forçar seus parceiros estabelecidos a cobrir o valor, sem real intenção de compra.</div>
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-num">U6</div>
+          <div class="action-body">
+            <div class="action-title">Comoditização por acesso direto ao fabricante</div>
+            <div class="action-desc">Grandes construtoras acessam os mesmos fabricantes diretamente a preços menores, forçando a Impacto a abrir mão da margem de hardware e faturar apenas a instalação.</div>
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-num">U7</div>
+          <div class="action-body">
+            <div class="action-title">Inventário imobilizado</div>
+            <div class="action-desc">Mais de 30 câmeras térmicas paradas em estoque, compradas especulativamente no hype solar de 2 anos atrás. Capital de giro congelado que precisa ser liquidado abaixo do custo de aquisição.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">05</span>
+        <span class="section-title">Conflito central — a nuvem que paralisa o crescimento</span>
+      </div>
+      <div class="verdict">
+        <div class="verdict-label">Diagnóstico estrutural</div>
+        <p>O conflito central da Impacto não é de mercado — é estrutural. Existe uma tensão irresolvida entre duas necessidades igualmente legítimas que criam políticas contraditórias.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+        <div class="trava-card" style="border-top-color:var(--amber)">
+          <div class="trava-id" style="color:var(--amber)">Lado B — Expandir Volume</div>
+          <div class="trava-name" style="font-size:14px">Contratar mais técnicos rapidamente para absorver novos contratos</div>
+          <div class="trava-desc" style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border)"><strong style="color:var(--text3);font-size:11px;text-transform:uppercase;letter-spacing:0.08em">Ação D:</strong> Flexibilizar critérios de seleção para escalar headcount</div>
+        </div>
+        <div class="trava-card" style="border-top-color:var(--blue)">
+          <div class="trava-id" style="color:var(--blue)">Lado C — Preservar Margem</div>
+          <div class="trava-name" style="font-size:14px">Manter o padrão técnico que protege a margem e a reputação da empresa</div>
+          <div class="trava-desc" style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border)"><strong style="color:var(--text3);font-size:11px;text-transform:uppercase;letter-spacing:0.08em">Ação D':</strong> Endurecer critérios — só técnicos seniores qualificados</div>
+        </div>
+      </div>
+      <div class="verdict" style="border-left-color:var(--green)">
+        <div class="verdict-label" style="color:var(--green)">Objetivo comum (A) e a injeção proposta</div>
+        <p><strong style="color:var(--text)">Objetivo:</strong> Crescer o Throughput com previsibilidade e margem saudável.<br><br>
+        <strong style="color:var(--text)">Pressuposição que torna D e D' excludentes:</strong> "Só é possível contratar rápido se abrir mão da qualidade técnica."<br><br>
+        <strong style="color:var(--green)">Injeção proposta:</strong> Estruturar um Playbook de Contratação (perfil TER) com hunting ativo de técnicos seniores em concorrentes — velocidade sem abrir mão do padrão.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <span class="section-num">06</span>
+        <span class="section-title">Panorama competitivo</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Concorrente</th><th>Verticais</th><th>Diferencial e estratégia de mídia</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-main">Teltex Tecnologia</td>
+              <td>Hospitalar, Solar, Logística</td>
+              <td>Cases técnicos de grande escala (NOC/SOC, portos). Portal de parceiros como gancho consultivo. LinkedIn Ads e Google Ads ativos.</td>
+            </tr>
+            <tr>
+              <td class="td-main">Ôguen</td>
+              <td>Usinas Solares, Galpões</td>
+              <td>Tecnologia israelense (radar Magos). Co-marketing com integradores via Ôguen Academy. Forte em especificação de produto no LinkedIn.</td>
+            </tr>
+            <tr>
+              <td class="td-main">Grupo Haganá</td>
+              <td>Logística, Hospitalar</td>
+              <td>Posicionamento de confiabilidade israelense. Depoimentos reais de clientes e premiações de RH. SIGAH: biometria em movimento.</td>
+            </tr>
+            <tr>
+              <td class="td-main">Convergint Brasil</td>
+              <td>Usinas, Hospitais</td>
+              <td>IA embarcada (Ambient.ai, Hakimo). Webinars técnicos e feiras (ISC Brasil). Posicionamento de transformação digital global.</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
